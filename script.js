@@ -1,90 +1,157 @@
-body{
-    font-family:sans-serif;
+const palettes = {
+    blue: [
+        "#5064A9",
+        "#5F74B8",
+        "#6D84C8",
+        "#8097D8",
+        "#4960B5"
+    ],
 
-    max-width:900px;
+    green: [
+        "#5F806B",
+        "#78937E",
+        "#8AA88D",
+        "#6C9272",
+        "#A7B79A"
+    ],
 
-    margin:auto;
+    pink: [
+        "#C38A9D",
+        "#D39EB0",
+        "#B97A8F",
+        "#D8B2BF",
+        "#AA6C81"
+    ],
 
-    padding:20px;
+    orange: [
+        "#C98D5B",
+        "#D89F6C",
+        "#B7784D",
+        "#D9AE7A",
+        "#E0BC8F"
+    ]
+};
+
+const fonts = [
+    "Georgia",
+    "Times New Roman",
+    "Palatino Linotype",
+    "Trebuchet MS",
+    "Arial",
+    "Verdana",
+    "Courier New"
+];
+
+function randomRotate() {
+    return Math.random() * 12 - 6;
 }
 
-h1{
-    font-size:28px;
+function randomTranslate() {
+    return Math.random() * 8 - 4;
 }
 
-textarea{
-
-    width:100%;
-
-    height:180px;
-
-    padding:12px;
-
-    font-size:16px;
-
-    box-sizing:border-box;
+function randomFont() {
+    return fonts[
+        Math.floor(Math.random() * fonts.length)
+    ];
 }
 
-.toolbar{
+function getColor() {
 
-    margin:20px 0;
+    const mode =
+        document.getElementById("palette").value;
 
-    display:flex;
+    if (mode === "random") {
 
-    flex-wrap:wrap;
+        const all = [
+            ...palettes.blue,
+            ...palettes.green,
+            ...palettes.pink,
+            ...palettes.orange
+        ];
 
-    gap:10px;
-
-    align-items:center;
-}
-
-#canvas{
-
-    width:100%;
-
-    min-height:500px;
-
-    padding:30px;
-
-    box-sizing:border-box;
-
-    border:1px solid #ddd;
-
-    border-radius:8px;
-}
-
-.line{
-
-    margin-bottom:26px;
-}
-
-.word{
-
-    display:inline-block;
-
-    color:white;
-
-    font-weight:bold;
-
-    padding:8px 14px;
-
-    margin-right:10px;
-
-    margin-bottom:10px;
-
-    font-size:clamp(18px,5vw,30px);
-
-    box-shadow:
-        1px 2px 4px rgba(0,0,0,0.15);
-}
-
-@media (max-width:600px){
-
-    body{
-        padding:12px;
+        return all[
+            Math.floor(Math.random() * all.length)
+        ];
     }
 
-    #canvas{
-        padding:18px;
-    }
+    const palette = palettes[mode];
+
+    return palette[
+        Math.floor(Math.random() * palette.length)
+    ];
 }
+
+function generate() {
+
+    const canvas =
+        document.getElementById("canvas");
+
+    canvas.innerHTML = "";
+
+    canvas.style.background =
+        document.getElementById("bgColor").value;
+
+    const text =
+        document.getElementById("input").value;
+
+    const lines =
+        text.split("\n");
+
+    lines.forEach(line => {
+
+        const row =
+            document.createElement("div");
+
+        row.className = "line";
+
+        const words =
+            line.trim().split(/\s+/);
+
+        words.forEach(word => {
+
+            if (!word) return;
+
+            const span =
+                document.createElement("span");
+
+            span.className = "word";
+
+            span.textContent = word;
+
+            span.style.background =
+                getColor();
+
+            span.style.fontFamily =
+                randomFont();
+
+            span.style.transform =
+                `rotate(${randomRotate()}deg) translateY(${randomTranslate()}px)`;
+
+            row.appendChild(span);
+        });
+
+        canvas.appendChild(row);
+    });
+}
+
+function downloadPNG() {
+
+    html2canvas(
+        document.getElementById("canvas")
+    ).then(canvas => {
+
+        const link =
+            document.createElement("a");
+
+        link.download =
+            "collage_poem.png";
+
+        link.href =
+            canvas.toDataURL();
+
+        link.click();
+    });
+}
+
+window.onload = generate;
