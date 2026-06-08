@@ -1,14 +1,22 @@
 body{
-    font-family:sans-serif;
 
     max-width:900px;
 
     margin:auto;
 
     padding:20px;
+
+    background:#faf7f2;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
 }
 
 h1{
+
+    margin-bottom:15px;
+
     font-size:28px;
 }
 
@@ -20,14 +28,14 @@ textarea{
 
     padding:12px;
 
+    box-sizing:border-box;
+
     font-size:16px;
 
-    box-sizing:border-box;
+    resize:vertical;
 }
 
 .toolbar{
-
-    margin:20px 0;
 
     display:flex;
 
@@ -35,7 +43,16 @@ textarea{
 
     gap:10px;
 
+    margin:20px 0;
+
     align-items:center;
+}
+
+button{
+
+    padding:8px 14px;
+
+    cursor:pointer;
 }
 
 #canvas{
@@ -44,27 +61,23 @@ textarea{
 
     min-height:500px;
 
-    padding:30px;
+    padding:35px;
+
+    border-radius:8px;
 
     box-sizing:border-box;
 
-    border:1px solid #ddd;
-
-    border-radius:8px;
+    overflow:hidden;
 }
 
 .line{
 
-    margin-bottom:26px;
+    margin-bottom:24px;
 }
 
 .word{
 
     display:inline-block;
-
-    color:white;
-
-    font-weight:bold;
 
     padding:8px 14px;
 
@@ -72,19 +85,40 @@ textarea{
 
     margin-bottom:10px;
 
-    font-size:clamp(18px,5vw,30px);
+    color:#222;
+
+    font-weight:bold;
 
     box-shadow:
-        1px 2px 4px rgba(0,0,0,0.15);
+        2px 3px 6px rgba(0,0,0,.15);
+
+    clip-path: polygon(
+      2% 1%,
+      98% 0%,
+      100% 96%,
+      3% 100%
+    );
+
+    transition:.2s;
 }
 
-@media (max-width:600px){
+.word:hover{
+
+    transform:
+        scale(1.05);
+}
+
+@media(max-width:600px){
 
     body{
         padding:12px;
     }
 
+    h1{
+        font-size:24px;
+    }
+
     #canvas{
-        padding:18px;
+        padding:20px;
     }
 }
