@@ -1,148 +1,271 @@
+const textures = [
+
+"paper0.jpg",
+"paper1.jpg",
+"paper2.jpg",
+"paper3.jpg",
+"paper4.jpg",
+"paper5.jpg",
+"paper6.jpg",
+"paper7.jpg",
+"paper8.jpg",
+"paper9.jpg"
+
+];
+
 const palettes = {
-    blue: [
-        "#5064A9",
-        "#5F74B8",
-        "#6D84C8",
-        "#8097D8",
-        "#4960B5"
-    ],
 
-    green: [
-        "#5F806B",
-        "#78937E",
-        "#8AA88D",
-        "#6C9272",
-        "#A7B79A"
-    ],
+blue:[
+"#6B7FA5",
+"#8196B9",
+"#94A6C8",
+"#7488B2",
+"#5D7198"
+],
 
-    pink: [
-        "#C38A9D",
-        "#D39EB0",
-        "#B97A8F",
-        "#D8B2BF",
-        "#AA6C81"
-    ],
+green:[
+"#8A9B7B",
+"#9DAE8E",
+"#B0BEA1",
+"#7F8F71",
+"#6C7B60"
+],
 
-    orange: [
-        "#C98D5B",
-        "#D89F6C",
-        "#B7784D",
-        "#D9AE7A",
-        "#E0BC8F"
-    ]
+pink:[
+"#D7A4B0",
+"#C98F9B",
+"#E1B7C0",
+"#B97A87",
+"#E9C9D0"
+],
+
+brown:[
+"#C08A5A",
+"#D19A69",
+"#A87044",
+"#E0B182",
+"#C57F42"
+],
+
+gray:[
+"#909090",
+"#A8A8A8",
+"#777777",
+"#B8B8B8",
+"#666666"
+]
+
 };
 
 const fonts = [
-    "Georgia",
-    "Times New Roman",
-    "Palatino Linotype",
-    "Trebuchet MS",
-    "Arial",
-    "Verdana",
-    "Courier New"
+
+"Microsoft YaHei",
+"SimSun",
+"KaiTi",
+"FangSong",
+"Georgia",
+"Times New Roman",
+"Garamond",
+"Courier New"
+
 ];
 
-function randomRotate() {
-    return Math.random() * 12 - 6;
-}
+function randomTexture(){
 
-function randomTranslate() {
-    return Math.random() * 8 - 4;
-}
-
-function randomFont() {
-    return fonts[
-        Math.floor(Math.random() * fonts.length)
+    return textures[
+        Math.floor(
+            Math.random()*textures.length
+        )
     ];
 }
 
-function getColor() {
+function randomRotate(){
+
+    return (
+        Math.random()*12
+    ) - 6;
+}
+
+function randomOffset(){
+
+    return (
+        Math.random()*12
+    ) - 6;
+}
+
+function randomFont(){
+
+    return fonts[
+        Math.floor(
+            Math.random()*fonts.length
+        )
+    ];
+}
+
+function randomFontSize(){
+
+    return (
+        Math.floor(
+            Math.random()*13
+        ) + 18
+    );
+}
+
+function getColor(){
 
     const mode =
-        document.getElementById("palette").value;
+        document.getElementById(
+            "palette"
+        ).value;
 
-    if (mode === "random") {
+    if(mode==="random"){
 
-        const all = [
-            ...palettes.blue,
-            ...palettes.green,
-            ...palettes.pink,
-            ...palettes.orange
-        ];
+        const all=[];
+
+        Object.values(
+            palettes
+        ).forEach(
+            p=>all.push(...p)
+        );
 
         return all[
-            Math.floor(Math.random() * all.length)
+            Math.floor(
+                Math.random()*all.length
+            )
         ];
     }
 
-    const palette = palettes[mode];
-
-    return palette[
-        Math.floor(Math.random() * palette.length)
+    return palettes[mode][
+        Math.floor(
+            Math.random()*5
+        )
     ];
 }
 
-function generate() {
+function generate(){
 
     const canvas =
-        document.getElementById("canvas");
+        document.getElementById(
+            "canvas"
+        );
 
-    canvas.innerHTML = "";
+    canvas.innerHTML="";
 
-    canvas.style.background =
-        document.getElementById("bgColor").value;
+    const bgMode =
+        document.getElementById(
+            "backgroundMode"
+        ).value;
+
+    if(bgMode==="paper"){
+
+        canvas.style.backgroundImage =
+            `url(${randomTexture()})`;
+
+        canvas.style.backgroundSize =
+            "cover";
+
+        canvas.style.backgroundColor =
+            "";
+
+    }else{
+
+        canvas.style.backgroundImage =
+            "none";
+
+        canvas.style.background =
+            document.getElementById(
+                "bgColor"
+            ).value;
+    }
 
     const text =
-        document.getElementById("input").value;
+        document.getElementById(
+            "input"
+        ).value;
 
     const lines =
         text.split("\n");
 
-    lines.forEach(line => {
+    lines.forEach(line=>{
 
         const row =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        row.className = "line";
+        row.className="line";
 
         const words =
             line.trim().split(/\s+/);
 
-        words.forEach(word => {
+        words.forEach(word=>{
 
-            if (!word) return;
+            if(!word) return;
 
             const span =
-                document.createElement("span");
+                document.createElement(
+                    "span"
+                );
 
-            span.className = "word";
+            span.className="word";
 
-            span.textContent = word;
-
-            span.style.background =
-                getColor();
+            span.textContent =
+                word;
 
             span.style.fontFamily =
                 randomFont();
 
+            span.style.fontSize =
+                randomFontSize() + "px";
+
             span.style.transform =
-                `rotate(${randomRotate()}deg) translateY(${randomTranslate()}px)`;
+                `rotate(${randomRotate()}deg)
+                 translateY(${randomOffset()}px)`;
+
+            const mode =
+                document.getElementById(
+                    "palette"
+                ).value;
+
+            if(mode==="paper"){
+
+                span.style.backgroundImage =
+                    `url(${randomTexture()})`;
+
+                span.style.backgroundSize =
+                    "cover";
+
+            }else{
+
+                span.style.background =
+                    getColor();
+            }
 
             row.appendChild(span);
+
         });
 
         canvas.appendChild(row);
+
     });
+
 }
 
-function downloadPNG() {
+function downloadPNG(){
 
     html2canvas(
-        document.getElementById("canvas")
-    ).then(canvas => {
+        document.getElementById(
+            "canvas"
+        ),
+        {
+            scale:3
+        }
+    ).then(canvas=>{
 
         const link =
-            document.createElement("a");
+            document.createElement(
+                "a"
+            );
 
         link.download =
             "collage_poem.png";
@@ -151,7 +274,9 @@ function downloadPNG() {
             canvas.toDataURL();
 
         link.click();
+
     });
+
 }
 
 window.onload = generate;
