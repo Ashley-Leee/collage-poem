@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>拼贴诗生成器</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+</head>
+
+<body>
+
+<h2>拼贴诗生成器</h2>
+
+<textarea id="input" placeholder="输入文字 看起来 很像诗"></textarea>
+
+<br><br>
+
+背景颜色：
+
+<input type="color" id="bgColor" value="#f5f0e8">
+
+<button onclick="generate()">生成</button>
+
+<button onclick="downloadPNG()">导出PNG</button>
+
+<hr>
+
+<div id="canvas"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
