@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
 <head>
 <meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
 <title>拼贴诗生成器</title>
 
 <link rel="stylesheet" href="style.css">
@@ -12,21 +17,44 @@
 
 <body>
 
-<h2>拼贴诗生成器</h2>
+<h1>拼贴诗生成器</h1>
 
-<textarea id="input" placeholder="输入文字 看起来 很像诗"></textarea>
+<textarea id="input">
+输入 文字
 
-<br><br>
+点击 生成 得到
 
-背景颜色：
+很 像 诗的 图片 和
 
-<input type="color" id="bgColor" value="#f5f0e8">
+请支持 育才 仙 宗
+</textarea>
 
-<button onclick="generate()">生成</button>
+<div class="toolbar">
 
-<button onclick="downloadPNG()">导出PNG</button>
+<label>背景颜色：</label>
+<input type="color"
+       id="bgColor"
+       value="#f3efe4">
 
-<hr>
+<label>纸片颜色：</label>
+
+<select id="palette">
+    <option value="blue">Retro Blue</option>
+    <option value="green">Retro Green</option>
+    <option value="pink">Retro Pink</option>
+    <option value="orange">Retro Orange</option>
+    <option value="random" selected>Random</option>
+</select>
+
+<button onclick="generate()">
+重新排版
+</button>
+
+<button onclick="downloadPNG()">
+导出PNG
+</button>
+
+</div>
 
 <div id="canvas"></div>
 
