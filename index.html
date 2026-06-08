@@ -2,10 +2,11 @@
 <html lang="zh-CN">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1">
+      content="width=device-width, initial-scale=1.0">
 
 <title>拼贴诗生成器</title>
 
@@ -29,19 +30,36 @@
 
 <div class="toolbar">
 
-<label>背景颜色：</label>
-<input type="color"
-       id="bgColor"
-       value="#f3efe4">
+<label>背景：</label>
 
-<label>纸片颜色：</label>
+<select id="backgroundMode">
+    <option value="paper">纸纹背景</option>
+    <option value="color">自定义颜色</option>
+</select>
+
+<input
+    type="color"
+    id="bgColor"
+    value="#f4efe3">
+
+<label>纸片：</label>
 
 <select id="palette">
-    <option value="blue">Retro Blue</option>
-    <option value="green">Retro Green</option>
-    <option value="pink">Retro Pink</option>
-    <option value="orange">Retro Orange</option>
-    <option value="random" selected>Random</option>
+
+    <option value="paper">纸纹</option>
+
+    <option value="random">混合</option>
+
+    <option value="blue">蓝</option>
+
+    <option value="green">绿</option>
+
+    <option value="pink">粉</option>
+
+    <option value="brown">棕</option>
+
+    <option value="gray">灰</option>
+
 </select>
 
 <button onclick="generate()">
@@ -59,4 +77,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
