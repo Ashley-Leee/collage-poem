@@ -100,13 +100,20 @@ whatisthis:[
 const fonts = [
 
 "Microsoft YaHei",
-"SimSun",
+
 "KaiTi",
-"FangSong",
+
 "Georgia",
-"Times New Roman",
+
 "Garamond",
-"Courier New"
+
+"Times New Roman",
+
+"Courier New",
+
+"serif",
+
+"sans-serif"
 
 ];
 
@@ -296,16 +303,63 @@ function generate(){
 
             if(mode==="paper"){
 
+                const texture =
+                    randomTexture();
+
                 span.style.backgroundImage =
-                    `url(${randomTexture()})`;
+                    `url(${texture})`;
 
                 span.style.backgroundSize =
                     "cover";
+
+                if(texture.includes("paper5")){
+
+                    span.style.color =
+                        "#ffffff";
+
+                }else{
+
+                    const darkColors = [
+
+                        "#111111",
+                        "#333333",
+                        "#555555",
+                        "#777777"
+
+                    ];
+
+                    span.style.color =
+                        darkColors[
+                            Math.floor(
+                                Math.random()*
+                                darkColors.length
+                            )
+                        ];
+
+                }
 
             }else{
 
                 span.style.background =
                     getColor();
+
+                const textColors = [
+
+                    "#ffffff",
+                    "#111111",
+                    "#333333",
+                    "#666666"
+
+                ];
+
+                span.style.color =
+                    textColors[
+                        Math.floor(
+                            Math.random()*
+                            textColors.length
+                        )
+                    ];
+
             }
 
             row.appendChild(span);
