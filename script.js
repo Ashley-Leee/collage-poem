@@ -53,6 +53,46 @@ gray:[
 "#777777",
 "#B8B8B8",
 "#666666"
+],
+
+yellow:[
+"#D8B75B",
+"#E3C96A",
+"#F0DA7C",
+"#CDA94A",
+"#F3E29B"
+],
+
+pinkgreen:[
+"#FF6FA8",
+"#FF92BC",
+"#FFB6D0",
+"#65D18C",
+"#44C76E",
+"#87E4A4"
+],
+
+orangegreen:[
+"#FF8B3D",
+"#FFB347",
+"#FF6B35",
+"#4CC96C",
+"#79D970"
+],
+
+blueyellow:[
+"#3A86FF",
+"#6AA7FF",
+"#FFD23F",
+"#FFE169"
+],
+
+whatisthis:[
+"#4A86E8",
+"#B7FF3C",
+"#F9F9F9",
+"#BFBFBF",
+"#6F6F6F"
 ]
 
 };
@@ -135,9 +175,36 @@ function getColor(){
         ];
     }
 
+    if(mode==="randomplus"){
+
+        const paletteNames =
+            Object.keys(
+                palettes
+            );
+
+        const chosenPalette =
+            paletteNames[
+                Math.floor(
+                    Math.random()*paletteNames.length
+                )
+            ];
+
+        const colors =
+            palettes[
+                chosenPalette
+            ];
+
+        return colors[
+            Math.floor(
+                Math.random()*colors.length
+            )
+        ];
+    }
+
     return palettes[mode][
         Math.floor(
-            Math.random()*5
+            Math.random()*
+            palettes[mode].length
         )
     ];
 }
